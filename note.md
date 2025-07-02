@@ -1,7 +1,7 @@
 # mid360 fastlivo2
 
 # record data
-rosbag record -O LVIO_inlab /camera/color/image_raw /livox/imu /livox/lidar
+rosbag record -O LVIO_inlab /camera/color/image_raw /livox/imu /livox/lidar /synced_image /synced_lidar /camera/depth/color/points
 # play bag
 
 

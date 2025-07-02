@@ -1136,7 +1136,11 @@ void LIVMapper::publish_frame_world(const ros::Publisher &pubLaserCloudFullRes, 
         pointRGB.z = pcl_wait_pub->points[i].z;
 
         V3D p_w(pcl_wait_pub->points[i].x, pcl_wait_pub->points[i].y, pcl_wait_pub->points[i].z);
-        V3D pf(vio_manager->new_frame_->w2f(p_w)); if (pf[2] < 0) continue;
+        V3D pf(vio_manager->new_frame_->w2f(p_w)); 
+        if (pf[2] < 0) {
+          // ROS_WARN("Point is behind the camera, skipping RGB assignment.");
+          continue;
+        }
         V2D pc(vio_manager->new_frame_->w2c(p_w));
 
         if (vio_manager->new_frame_->cam_->isInFrame(pc.cast<int>(), 3)) // 100
@@ -1152,6 +1156,7 @@ void LIVMapper::publish_frame_world(const ros::Publisher &pubLaserCloudFullRes, 
           // else if (pointRGB.g < 0) pointRGB.g = 0;
           // if (pointRGB.b > 255) pointRGB.b = 255;
           // else if (pointRGB.b < 0) pointRGB.b = 0;
+          // ROS_INFO("pf norm: %.3f, pointRGB: (%d, %d, %d), blind_rgb_points %f", pf.norm(), (int)pointRGB.r, (int)pointRGB.g, (int)pointRGB.b, blind_rgb_points);
           if (pf.norm() > blind_rgb_points) laserCloudWorldRGB->push_back(pointRGB);
         }
       }

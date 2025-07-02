@@ -1,5 +1,5 @@
 common:
-  img_topic: "/left_camera/image"
+  img_topic: "/synced_image"
   lid_topic: "/synced_lidar"
   imu_topic: "/livox/imu"
   img_en: 1
@@ -12,7 +12,7 @@ extrin_calib:
   Rcl: [0,-1,0,
         0,0,-1,
         1,0,0] 
-  Pcl: [0,-0.1,0]
+  Pcl: [0.03, -0.01, -0.09]
 
 time_offset:
   imu_time_offset: 0.0
@@ -56,18 +56,18 @@ lio:
   max_points_num: 50
   layer_init_num: [5, 5, 5, 5, 5]
 
-local_map:
+local_map:  
   map_sliding_en: false
   half_map_size: 100
   sliding_thresh: 8
 
 uav:
   imu_rate_odom: false
-  gravity_align_en: true
+  gravity_align_en: false
 
 publish:
   dense_map_en: true
-  pub_effect_point_en: false
+  pub_effect_point_en: false 
   pub_plane_en: false
   pub_scan_num: 1
   blind_rgb_points: 0.0
@@ -78,6 +78,8 @@ evo:
 
 pcd_save:
   pcd_save_en: true
-  colmap_output_en: true # need to set interval = -1
+  colmap_output_en: false # need to set interval = -1
   filter_size_pcd: 0.15
   interval: -1
+  # how many LiDAR frames saved in each pcd file;
+  # -1 : all frames will be saved in ONE pcd file, may lead to memory crash when having too much frames.
