@@ -6,18 +6,52 @@ rosbag record -O LVIO_inlab /camera/color/image_raw /livox/imu /livox/lidar /syn
 
 
 # camera info
-height: 720
-width: 1280
-distortion_model: "plumb_bob"
-D: [-0.055450838059186935, 0.06841126084327698, -3.5516146454028785e-05, -0.00010084670066135004, -0.02119487151503563]
-K: [632.0479125976562, 0.0, 628.8812255859375, 0.0, 631.2682495117188, 371.5096435546875, 0.0, 0.0, 1.0]
-R: [1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0]
-P: [632.0479125976562, 0.0, 628.8812255859375, 0.0, 0.0, 631.2682495117188, 371.5096435546875, 0.0, 0.0, 0.0, 1.0, 0.0]
-binning_x: 0
-binning_y: 0
-roi: 
-  x_offset: 0
-  y_offset: 0
-  height: 0
-  width: 0
-  do_rectify: False
+{
+  "camera": {
+    "camera_model": "plumb_bob",
+    "distortion_coeffs": [
+      -0.055450838059186935,
+      0.06841126084327698,
+      -3.5516146454028785e-05,
+      -0.00010084670066135004,
+      -0.02119487151503563
+    ],
+    "intrinsics": [
+      631.1903076171875,
+      630.41162109375,
+      628.8812255859375,
+      371.5096435546875
+    ]
+  },
+  "meta": {
+    "bag_names": [
+      "livox_data_20250703_cali_0.db3"
+    ],
+    "camera_info_topic": "/camera/camera/color/camera_info",
+    "data_path": "/tmp/input_bags",
+    "image_topic": "/camera/camera/color/image_raw",
+    "intensity_channel": "intensity",
+    "points_topic": "/livox/lidar"
+  },
+  "results": {
+    "T_lidar_camera": [
+      0.03842141220053184,
+      -0.01910240283287441,
+      -0.07586569777611907,
+      -0.5004375069928715,
+      0.49727401587174835,
+      -0.5011884722776524,
+      0.5010897823639363
+    ],
+    "init_T_lidar_camera": [
+      -0.01,
+      -0.03,
+      -0.09,
+      -0.4999999999999999,
+      0.5,
+      -0.5,
+      0.5000000000000001
+    ]
+  }
+}
+

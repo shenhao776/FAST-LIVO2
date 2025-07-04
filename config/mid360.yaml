@@ -9,10 +9,10 @@ common:
 extrin_calib:
   extrinsic_T: [0.011, 0.02329, -0.04412]
   extrinsic_R: [1, 0, 0, 0, 1, 0, 0, 0, 1]
-  Rcl: [0,-1,0,
-        0,0,-1,
-        1,0,0] 
-  Pcl: [0.03, -0.01, -0.09]
+  Rcl: [-0.004581,-0.999977,-0.003231,
+        0.003071,0.003251,-0.999999,
+        0.999945,-0.004577,0.003054] 
+  Pcl: [-0.019171, -0.075922, -0.038275]
 
 time_offset:
   imu_time_offset: 0.0
@@ -77,7 +77,7 @@ evo:
   pose_output_en: false
 
 pcd_save:
-  pcd_save_en: true
+  pcd_save_en: false
   colmap_output_en: false # need to set interval = -1
   filter_size_pcd: 0.15
   interval: -1
