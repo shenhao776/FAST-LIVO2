@@ -5,6 +5,33 @@ rosbag record -O LVIO_inlab /camera/color/image_raw /livox/imu /livox/lidar /syn
 # play bag
 
 
+
+# calibration docker
+origin:https://koide3.github.io/direct_visual_lidar_calibration/programs/
+
+``` bash
+bag_path="/home/hao/shared_files/rosbag/ros2bag/livox_data_20250703_cali"
+preprocessed_path="/home/hao/shared_files/rosbag/ros2bag/livox_preprocessed_20250703_cali"
+docker run \
+  --rm -it \
+  --net host \
+  --gpus all \
+  -e DISPLAY=$DISPLAY \
+  -v $HOME/.Xauthority:/root/.Xauthority \
+  -v $bag_path:/tmp/input_bags \
+  -v $preprocessed_path:/tmp/preprocessed \
+  koide3/direct_visual_lidar_calibration:humble bash
+
+# pre process
+ros2 run direct_visual_lidar_calibration preprocess -av /tmp/input_bags /tmp/preprocessed
+# initial pose 
+ros2 run direct_visual_lidar_calibration find_matches_superglue.py /tmp/preprocessed/
+ros2 run direct_visual_lidar_calibration initial_guess_auto /tmp/preprocessed/
+# optimization
+ros2 run direct_visual_lidar_calibration calibrate /tmp/preprocessed/
+#visualization
+ros2 run direct_visual_lidar_calibration viewer /tmp/preprocessed
+
 # camera info
 {
   "camera": {
